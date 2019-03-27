@@ -5,3 +5,6 @@
 in*
 out*
 a.out
+
+.direnv
+.envrc
