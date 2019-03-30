@@ -1,6 +1,7 @@
 
 import sys
 
+import re
 from pathlib import Path
 from bs4 import BeautifulSoup
 import requests
@@ -24,6 +25,7 @@ def ignore_part(part):
     else:
         return False
 
+
 def is_input_example(part):
     header = part.find("h3")
     if header is None:
@@ -31,6 +33,7 @@ def is_input_example(part):
 
     text = header.string
     return text.find("入力例") != -1
+
 
 def is_output_example(part):
     header = part.find("h3")
@@ -46,7 +49,7 @@ def extract_example(part, path):
     Get example from the part and write it to path.
     """
     with open(path, "w") as f:
-        f.write(part.find("section").pre.get_text(strip=True))
+        f.write(re.sub(r"\r\n", "\n", part.find("section").pre.get_text(strip=True)))
         f.write("\n")
 
 
