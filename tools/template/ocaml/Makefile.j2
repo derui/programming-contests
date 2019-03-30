@@ -1,0 +1,14 @@
+.PHONY: test clean
+
+a.out: main.ml
+	ocamlopt main.ml
+
+test: a.out
+{% for example in examples %}
+	@cat {{ example.in_file_name }} | ./a.out > {{ example.out_file_name }}.gen
+	diff {{ example.out_file_name }} {{ example.out_file_name }}.gen
+{% endfor %}
+
+clean:
+	rm -f a.out
+	rm -f *.gen

@@ -8,3 +8,8 @@ a.out
 
 .direnv
 .envrc
+
+atcoder/**/in*
+atcoder/**/out*
+
+__pycache__/
