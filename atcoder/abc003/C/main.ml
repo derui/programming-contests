@@ -23,5 +23,20 @@ let split_on_char ~char ~str =
   in
   split str []
 
+let solve rates =
+  let rates = List.sort compare rates in
+  List.fold_left (fun accum v -> (accum +. v) /. 2.) 0. rates
+
 let () =
-  (* need implementation *)
+  let line = read_line () in
+  let _, viewable =
+    Scanf.sscanf line "%d %d" (fun total viewable -> (total, viewable))
+  in
+  let line = read_line () in
+  let rates =
+    split_on_char ~char:' ' ~str:line
+    |> List.map float_of_string |> List.sort compare |> List.rev
+    |> take_list ~num:viewable
+  in
+  let my_rate = solve rates in
+  Printf.printf "%f\n" my_rate

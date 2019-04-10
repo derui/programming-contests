@@ -1,7 +1,7 @@
 .PHONY: test clean
 
 a.out: main.ml
-	ocamlopt main.ml
+	ocamlfind ocamlopt -package num -linkpkg main.ml
 
 test: a.out
 {% for example in examples %}
