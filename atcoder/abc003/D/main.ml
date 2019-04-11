@@ -1,4 +1,4 @@
-let laddar n =
+let factorial n =
   let rec laddar' accum n =
     if n = 0 then accum
     else laddar' Big_int.(mult_int_big_int n accum) (pred n)
@@ -7,7 +7,7 @@ let laddar n =
 
 (* calculate combination as nCm *)
 let combination n m =
-  let n' = laddar n and m' = laddar m and nm' = laddar (n - m) in
+  let n' = factorial n and m' = factorial m and nm' = factorial (n - m) in
   Big_int.(div_big_int n' (mult_big_int m' nm'))
 
 let () =
@@ -25,12 +25,7 @@ let () =
   in
   if wrapped_columns * wrapped_rows = desks + racks then
     let diviser = Big_int.big_int_of_int64 1000000007L in
-    let ret =
-      if desks = 0 || racks = 0 then Big_int.big_int_of_int 1
-      else
-        let ret = laddar (desks + racks) in
-        Big_int.(div_big_int ret (big_int_of_int (desks + racks)))
-    in
+    let ret = combination (desks + racks) desks in
     let patterns =
       (rows - wrapped_rows + 1) * (columns - wrapped_columns + 1)
     in

@@ -23,5 +23,19 @@ let split_on_char ~char ~str =
   in
   split str []
 
+(* calculate factorial *)
+let factorial n =
+  let rec laddar' accum n =
+    if n = 0 then accum
+    else laddar' Big_int.(mult_int_big_int n accum) (pred n)
+  in
+  laddar' (Big_int.big_int_of_int 1) n
+
+(* calculate combination as nCm *)
+let combination n m =
+  let n' = factorial n and m' = factorial m and nm' = factorial (n - m) in
+  Big_int.(div_big_int n' (mult_big_int m' nm'))
+
+
 let () =
   (* need implementation *)
