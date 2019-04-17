@@ -49,7 +49,10 @@ def extract_example(part, path):
     Get example from the part and write it to path.
     """
     with open(path, "w") as f:
-        f.write(re.sub(r"\r\n", "\n", part.find("section").pre.get_text(strip=True)))
+        section = part.find("section")
+        if section is None:
+            section = part
+        f.write(re.sub(r"\r\n", "\n", section.pre.get_text(strip=True)))
         f.write("\n")
 
 
