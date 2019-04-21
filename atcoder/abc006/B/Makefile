@@ -14,12 +14,6 @@ test: a.out
 	@cat in3 | ./a.out > out3.gen
 	diff out3 out3.gen
 
-	@cat in4 | ./a.out > out4.gen
-	diff out4 out4.gen
-
-	@cat in5 | ./a.out > out5.gen
-	diff out5 out5.gen
-
 
 clean:
 	rm -f a.out
