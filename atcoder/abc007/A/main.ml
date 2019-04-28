@@ -38,31 +38,6 @@ let combination n m =
   let n' = factorial n and m' = factorial m and nm' = factorial (n - m) in
   Big_int.(div_big_int n' (mult_big_int m' nm'))
 
-let baby_legs = 4
-
-let old_legs = 3
-
-let adult_legs = 2
-
-let solve numbers total_legs =
-  let rec solve' total_legs baby_number adult_number =
-    if baby_number < 0 then (-1, -1, -1)
-    else
-      let legs = (baby_number * baby_legs) + (adult_number * adult_legs) in
-      if legs = total_legs then (adult_number, 0, baby_number)
-      else
-        let legs, baby_number', adult_number' =
-          if baby_number > 0 then
-            (legs - baby_legs + old_legs, pred baby_number, adult_number)
-          else (legs - adult_legs + old_legs, baby_number, pred adult_number)
-        in
-        if legs = total_legs then (adult_number', 1, baby_number')
-        else solve' total_legs (pred baby_number) (succ adult_number)
-  in
-  solve' total_legs numbers 0
-
 let () =
-  let line = read_line () in
-  let numbers, total_legs = Scanf.sscanf line "%d %d" (fun a b -> (a, b)) in
-  let adults, olds, babies = solve numbers total_legs in
-  Printf.printf "%d %d %d\n" adults olds babies
+  let trees = read_line () |> int_of_string in
+  Printf.printf "%d\n" (pred trees)
