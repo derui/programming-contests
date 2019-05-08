@@ -3,8 +3,10 @@ let take_list ~num list =
     if count = 0 then List.rev accum
     else
       match rest with
-      | [] -> List.rev accum
-      | v :: rest -> take_list' (pred count) rest (v :: accum)
+      | [] ->
+          List.rev accum
+      | v :: rest ->
+          take_list' (pred count) rest (v :: accum)
   in
   take_list' num list []
 
@@ -36,15 +38,7 @@ let combination n m =
   let n' = factorial n and m' = factorial m and nm' = factorial (n - m) in
   Big_int.(div_big_int n' (mult_big_int m' nm'))
 
-let read_lines count ~f =
-  let rec read_lines' current accum =
-    if current >= count then List.rev accum
-    else
-      let line = read_line () |> f in
-      read_lines' (succ current) (line :: accum)
-  in
-  read_lines' 0 []
-
 let () =
-  (* need implementation *)
-  ()
+  let number = read_line () |> int_of_string in
+  if number mod 2 = 0 then Printf.printf "%d\n" (number / 2)
+  else Printf.printf "%d\n" ((number / 2) + 1)

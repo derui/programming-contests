@@ -3,8 +3,10 @@ let take_list ~num list =
     if count = 0 then List.rev accum
     else
       match rest with
-      | [] -> List.rev accum
-      | v :: rest -> take_list' (pred count) rest (v :: accum)
+      | [] ->
+          List.rev accum
+      | v :: rest ->
+          take_list' (pred count) rest (v :: accum)
   in
   take_list' num list []
 
@@ -36,6 +38,12 @@ let combination n m =
   let n' = factorial n and m' = factorial m and nm' = factorial (n - m) in
   Big_int.(div_big_int n' (mult_big_int m' nm'))
 
+module Int_set = Set.Make (struct
+  type t = int
+
+  let compare = compare
+end)
+
 let read_lines count ~f =
   let rec read_lines' current accum =
     if current >= count then List.rev accum
@@ -46,5 +54,11 @@ let read_lines count ~f =
   read_lines' 0 []
 
 let () =
-  (* need implementation *)
-  ()
+  let count = read_line () |> int_of_string in
+  let prices = read_lines count ~f:int_of_string in
+  let set =
+    List.fold_left (fun accum v -> Int_set.add v accum) Int_set.empty prices
+  in
+  let prices = Int_set.fold (fun v accum -> v :: accum) set [] in
+  let price = List.sort compare prices |> List.rev |> List.tl |> List.hd in
+  Printf.printf "%d\n" price
