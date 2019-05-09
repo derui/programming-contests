@@ -45,6 +45,18 @@ let read_lines count ~f =
   in
   read_lines' 0 []
 
+let list_find_opt ~f l = try Some (List.find f l) with Not_found -> None
+
+let string_of_list l =
+  let str = Bytes.make (List.length l) ' ' in
+  List.iteri (fun i c -> Bytes.set str i c) l ;
+  Bytes.to_string str
+
+let list_of_string s =
+  Array.init (String.length s) (fun i -> s.[i]) |> Array.to_list
+
+let string_of_list l = String.init (List.length l) (List.nth l)
+
 let () =
   (* need implementation *)
   ()
